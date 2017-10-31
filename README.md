@@ -1,4 +1,4 @@
-# Lepre Routing
+# Lepre Routing [![Build Status](https://travis-ci.org/leprephp/routing.svg?branch=master)](https://travis-ci.org/leprephp/routing)
 
 A unified interface to http routing, [PSR-7][psr7] compliant
 
