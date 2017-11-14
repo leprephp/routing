@@ -21,73 +21,73 @@ interface RouterMapInterface extends RouterInterface
     /**
      * Adds a route.
      *
-     * @param array  $methods
-     * @param string $name
      * @param string $path
      * @param mixed  $handler
+     * @param array  $methods
+     * @param string $name
      */
-    public function addRoute(array $methods, string $name, string $path, $handler);
+    public function addRoute(string $path, $handler, array $methods = [], string $name = null);
 
     /**
      * Adds a GET route.
      *
-     * @param string $name
      * @param string $path
      * @param mixed  $handler
+     * @param string $name
      */
-    public function get(string $name, string $path, $handler);
+    public function get(string $path, $handler, string $name = null);
 
     /**
      * Adds a POST route.
      *
-     * @param string $name
      * @param string $path
      * @param mixed  $handler
+     * @param string $name
      */
-    public function post(string $name, string $path, $handler);
+    public function post(string $path, $handler, string $name = null);
 
     /**
      * Adds a PUT route.
      *
-     * @param string $name
      * @param string $path
      * @param mixed  $handler
+     * @param string $name
      */
-    public function put(string $name, string $path, $handler);
+    public function put(string $path, $handler, string $name = null);
 
     /**
      * Adds a PATCH route.
      *
-     * @param string $name
      * @param string $path
      * @param mixed  $handler
+     * @param string $name
      */
-    public function patch(string $name, string $path, $handler);
+    public function patch(string $path, $handler, string $name = null);
 
     /**
      * Adds a DELETE route.
      *
-     * @param string $name
      * @param string $path
      * @param mixed  $handler
+     * @param string $name
      */
-    public function delete(string $name, string $path, $handler);
+    public function delete(string $path, $handler, string $name = null);
 
     /**
      * Adds a OPTIONS route.
      *
-     * @param string $name
      * @param string $path
      * @param mixed  $handler
+     * @param string $name
      */
-    public function options(string $name, string $path, $handler);
+    public function options(string $path, $handler, string $name = null);
 
     /**
      * Adds a HEAD route.
      *
-     * @param string $name
      * @param string $path
      * @param mixed  $handler
+     * @param string $name
      */
-    public function head(string $name, string $path, $handler);
+    public function head(string $path, $handler, string $name = null);
 }

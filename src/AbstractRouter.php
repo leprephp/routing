@@ -21,56 +21,56 @@ abstract class AbstractRouter implements RouterMapInterface
     /**
      * @inheritDoc
      */
-    public function get(string $name, string $path, $handler)
+    public function get(string $path, $handler, string $name = null)
     {
-        $this->addRoute(['GET'], $name, $path, $handler);
+        $this->addRoute($path, $handler, ['GET'], $name);
     }
 
     /**
      * @inheritDoc
      */
-    public function post(string $name, string $path, $handler)
+    public function post(string $path, $handler, string $name = null)
     {
-        $this->addRoute(['POST'], $name, $path, $handler);
+        $this->addRoute($path, $handler, ['POST'], $name);
     }
 
     /**
      * @inheritDoc
      */
-    public function put(string $name, string $path, $handler)
+    public function put(string $path, $handler, string $name = null)
     {
-        $this->addRoute(['PUT'], $name, $path, $handler);
+        $this->addRoute($path, $handler, ['PUT'], $name);
     }
 
     /**
      * @inheritDoc
      */
-    public function patch(string $name, string $path, $handler)
+    public function patch(string $path, $handler, string $name = null)
     {
-        $this->addRoute(['PATCH'], $name, $path, $handler);
+        $this->addRoute($path, $handler, ['PATCH'], $name);
     }
 
     /**
      * @inheritDoc
      */
-    public function delete(string $name, string $path, $handler)
+    public function delete(string $path, $handler, string $name = null)
     {
-        $this->addRoute(['DELETE'], $name, $path, $handler);
+        $this->addRoute($path, $handler, ['DELETE'], $name);
     }
 
     /**
      * @inheritDoc
      */
-    public function options(string $name, string $path, $handler)
+    public function options(string $path, $handler, string $name = null)
     {
-        $this->addRoute(['OPTIONS'], $name, $path, $handler);
+        $this->addRoute($path, $handler, ['OPTIONS'], $name);
     }
 
     /**
      * @inheritDoc
      */
-    public function head(string $name, string $path, $handler)
+    public function head(string $path, $handler, string $name = null)
     {
-        $this->addRoute(['HEAD'], $name, $path, $handler);
+        $this->addRoute($path, $handler, ['HEAD'], $name);
     }
 }
