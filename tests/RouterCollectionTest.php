@@ -13,7 +13,11 @@ declare(strict_types=1);
 
 namespace Lepre\Routing\Tests;
 
+use Lepre\Routing\Exception\MethodNotAllowedException;
+use Lepre\Routing\Exception\NotAcceptableException;
+use Lepre\Routing\Exception\ResourceNotFoundException;
 use Lepre\Routing\RouterCollection;
+use Lepre\Routing\RouteResult;
 use Lepre\Routing\RouterInterface;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ServerRequestInterface;
@@ -73,39 +77,96 @@ class RouterCollectionTest extends TestCase
         $this->collection->match($request);
     }
 
-    public function testRouterMatchThrownMethodNotAllowedException()
+    /**
+     * @dataProvider routerMatchExceptionProvider
+     * @param string $exceptionClass
+     */
+    public function test_On_OneRouterThrownException($exceptionClass)
     {
-        $this->markTestIncomplete();
+        $request = $this->createMock(ServerRequestInterface::class);
+
+        $router = $this->createMock(RouterInterface::class);
+        $router->expects($this->once())->method('match')->willThrowException(new $exceptionClass());
+
+        /**
+         * @var RouterInterface        $router
+         * @var ServerRequestInterface $request
+         */
+
+        $this->collection->registerRouter($router);
+
+        try {
+            $this->collection->match($request);
+        } catch (\Exception $e) {
+            $this->assertInstanceOf($exceptionClass, $e);
+
+            return;
+        }
+
+        $this->fail("Expected exception '{$exceptionClass}' not thrown.");
     }
 
-    public function testRouterMatchThrownNotAcceptableException()
+    /**
+     * @dataProvider routerMatchExceptionProvider
+     * @param string $exceptionClass
+     */
+    public function test_On_FirstRouterThrownException_And_SecondRouterMatchAValidResult($exceptionClass)
     {
-        $this->markTestIncomplete();
+        $request = $this->createMock(ServerRequestInterface::class);
+        $routeResult = new RouteResult('controller', []);
+
+        $router1 = $this->createMock(RouterInterface::class);
+        $router1->expects($this->once())->method('match')->willThrowException(new $exceptionClass());
+
+        $router2 = $this->createMock(RouterInterface::class);
+        $router2->expects($this->once())->method('match')->willReturn($routeResult);
+
+        /**
+         * @var ServerRequestInterface $request
+         * @var RouterInterface        $router1
+         * @var RouterInterface        $router2
+         */
+
+        $this->collection->registerRouter($router1);
+        $this->collection->registerRouter($router2);
+
+        $this->assertEquals($routeResult, $this->collection->match($request));
     }
 
-    public function testRouterMatchThrownResourceNotFoundException()
+    public function routerMatchExceptionProvider()
     {
-        $this->markTestIncomplete();
-    }
-
-    public function testFirstRouterMatchThrownMethodNotAllowedExceptionAndTheSecondOneFoundTheRoute()
-    {
-        $this->markTestIncomplete();
-    }
-
-    public function testFirstRouterMatchThrownNotAcceptableExceptionAndTheSecondOneFoundTheRoute()
-    {
-        $this->markTestIncomplete();
-    }
-
-    public function testFirstRouterMatchThrownResourceNotFoundExceptionAndTheSecondOneFoundTheRoute()
-    {
-        $this->markTestIncomplete();
+        return [
+            [ResourceNotFoundException::class],
+            [MethodNotAllowedException::class],
+            [NotAcceptableException::class],
+        ];
     }
 
     public function testRegisterRouterOrder()
     {
-        $this->markTestIncomplete();
+        $request = $this->createMock(ServerRequestInterface::class);
+
+        $router1 = $this->createMock(RouterInterface::class);
+        $router1->expects($this->never())->method('match')->willReturn(new RouteResult('controller1', []));
+
+        $router2 = $this->createMock(RouterInterface::class);
+        $router2->expects($this->never())->method('match')->willReturn(new RouteResult('controller2', []));
+
+        $router3 = $this->createMock(RouterInterface::class);
+        $router3->expects($this->once())->method('match')->willReturn(new RouteResult('controller3', []));
+
+        /**
+         * @var ServerRequestInterface $request
+         * @var RouterInterface        $router1
+         * @var RouterInterface        $router2
+         * @var RouterInterface        $router3
+         */
+
+        $this->collection->registerRouter($router3);
+        $this->collection->registerRouter($router2);
+        $this->collection->registerRouter($router1);
+
+        $this->assertEquals('controller3', $this->collection->match($request)->getController());
     }
 
     /**
