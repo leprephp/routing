@@ -113,7 +113,7 @@ class RouterCollectionTest extends TestCase
     public function test_On_FirstRouterThrownException_And_SecondRouterMatchAValidResult($exceptionClass)
     {
         $request = $this->createMock(ServerRequestInterface::class);
-        $routeResult = new RouteResult('controller', []);
+        $routeResult = new RouteResult('handler', []);
 
         $router1 = $this->createMock(RouterInterface::class);
         $router1->expects($this->once())->method('match')->willThrowException(new $exceptionClass());
@@ -147,13 +147,13 @@ class RouterCollectionTest extends TestCase
         $request = $this->createMock(ServerRequestInterface::class);
 
         $router1 = $this->createMock(RouterInterface::class);
-        $router1->expects($this->never())->method('match')->willReturn(new RouteResult('controller1', []));
+        $router1->expects($this->never())->method('match')->willReturn(new RouteResult('handler1', []));
 
         $router2 = $this->createMock(RouterInterface::class);
-        $router2->expects($this->never())->method('match')->willReturn(new RouteResult('controller2', []));
+        $router2->expects($this->never())->method('match')->willReturn(new RouteResult('handler2', []));
 
         $router3 = $this->createMock(RouterInterface::class);
-        $router3->expects($this->once())->method('match')->willReturn(new RouteResult('controller3', []));
+        $router3->expects($this->once())->method('match')->willReturn(new RouteResult('handler3', []));
 
         /**
          * @var ServerRequestInterface $request
@@ -166,7 +166,7 @@ class RouterCollectionTest extends TestCase
         $this->collection->registerRouter($router2);
         $this->collection->registerRouter($router1);
 
-        $this->assertEquals('controller3', $this->collection->match($request)->getController());
+        $this->assertEquals('handler3', $this->collection->match($request)->getHandler());
     }
 
     /**

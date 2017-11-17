@@ -23,7 +23,7 @@ class RouteResult
     /**
      * @var mixed
      */
-    private $controller;
+    private $handler;
 
     /**
      * @var string[]
@@ -33,21 +33,21 @@ class RouteResult
     /**
      * RouteResult constructor.
      *
-     * @param mixed    $controller
+     * @param mixed    $handler
      * @param string[] $params
      */
-    public function __construct($controller, array $params = [])
+    public function __construct($handler, array $params = [])
     {
-        $this->controller = $controller;
+        $this->handler = $handler;
         $this->params = $params;
     }
 
     /**
      * @return mixed
      */
-    public function getController()
+    public function getHandler()
     {
-        return $this->controller;
+        return $this->handler;
     }
 
     /**

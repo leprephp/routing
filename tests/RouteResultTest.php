@@ -23,17 +23,17 @@ class RouteResultTest extends TestCase
 {
     public function testBasic()
     {
-        $result = new RouteResult('controller');
+        $result = new RouteResult('handler');
 
-        $this->assertEquals('controller', $result->getController());
+        $this->assertEquals('handler', $result->getHandler());
         $this->assertEquals([], $result->getParams());
     }
 
     public function testWithParams()
     {
-        $result = new RouteResult('controller2', ['key' => 'value']);
+        $result = new RouteResult('handler', ['key' => 'value']);
 
-        $this->assertEquals('controller2', $result->getController());
+        $this->assertEquals('handler', $result->getHandler());
         $this->assertEquals(['key' => 'value'], $result->getParams());
     }
 }
