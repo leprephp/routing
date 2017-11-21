@@ -21,56 +21,84 @@ abstract class AbstractRouter implements RouterMapInterface
     /**
      * @inheritDoc
      */
-    public function get(string $path, $handler, string $name = null)
+    public function get(string $path, $handler, string $name = null): Route
     {
-        $this->addRoute($path, $handler, ['GET'], $name);
+        $route = new Route($path, $handler, ['GET'], $name);
+
+        $this->addRoute($route);
+
+        return $route;
     }
 
     /**
      * @inheritDoc
      */
-    public function post(string $path, $handler, string $name = null)
+    public function post(string $path, $handler, string $name = null): Route
     {
-        $this->addRoute($path, $handler, ['POST'], $name);
+        $route = new Route($path, $handler, ['POST'], $name);
+
+        $this->addRoute($route);
+
+        return $route;
     }
 
     /**
      * @inheritDoc
      */
-    public function put(string $path, $handler, string $name = null)
+    public function put(string $path, $handler, string $name = null): Route
     {
-        $this->addRoute($path, $handler, ['PUT'], $name);
+        $route = new Route($path, $handler, ['PUT'], $name);
+
+        $this->addRoute($route);
+
+        return $route;
     }
 
     /**
      * @inheritDoc
      */
-    public function patch(string $path, $handler, string $name = null)
+    public function patch(string $path, $handler, string $name = null): Route
     {
-        $this->addRoute($path, $handler, ['PATCH'], $name);
+        $route = new Route($path, $handler, ['PATCH'], $name);
+
+        $this->addRoute($route);
+
+        return $route;
     }
 
     /**
      * @inheritDoc
      */
-    public function delete(string $path, $handler, string $name = null)
+    public function delete(string $path, $handler, string $name = null): Route
     {
-        $this->addRoute($path, $handler, ['DELETE'], $name);
+        $route = new Route($path, $handler, ['DELETE'], $name);
+
+        $this->addRoute($route);
+
+        return $route;
     }
 
     /**
      * @inheritDoc
      */
-    public function options(string $path, $handler, string $name = null)
+    public function options(string $path, $handler, string $name = null): Route
     {
-        $this->addRoute($path, $handler, ['OPTIONS'], $name);
+        $route = new Route($path, $handler, ['OPTIONS'], $name);
+
+        $this->addRoute($route);
+
+        return $route;
     }
 
     /**
      * @inheritDoc
      */
-    public function head(string $path, $handler, string $name = null)
+    public function head(string $path, $handler, string $name = null): Route
     {
-        $this->addRoute($path, $handler, ['HEAD'], $name);
+        $route = new Route($path, $handler, ['HEAD'], $name);
+
+        $this->addRoute($route);
+
+        return $route;
     }
 }

@@ -21,12 +21,9 @@ interface RouterMapInterface extends RouterInterface
     /**
      * Adds a route.
      *
-     * @param string $path
-     * @param mixed  $handler
-     * @param array  $methods
-     * @param string $name
+     * @param Route $route
      */
-    public function addRoute(string $path, $handler, array $methods = [], string $name = null);
+    public function addRoute(Route $route);
 
     /**
      * Adds a GET route.
@@ -34,8 +31,9 @@ interface RouterMapInterface extends RouterInterface
      * @param string $path
      * @param mixed  $handler
      * @param string $name
+     * @return Route
      */
-    public function get(string $path, $handler, string $name = null);
+    public function get(string $path, $handler, string $name = null): Route;
 
     /**
      * Adds a POST route.
@@ -43,8 +41,9 @@ interface RouterMapInterface extends RouterInterface
      * @param string $path
      * @param mixed  $handler
      * @param string $name
+     * @return Route
      */
-    public function post(string $path, $handler, string $name = null);
+    public function post(string $path, $handler, string $name = null): Route;
 
     /**
      * Adds a PUT route.
@@ -52,8 +51,9 @@ interface RouterMapInterface extends RouterInterface
      * @param string $path
      * @param mixed  $handler
      * @param string $name
+     * @return Route
      */
-    public function put(string $path, $handler, string $name = null);
+    public function put(string $path, $handler, string $name = null): Route;
 
     /**
      * Adds a PATCH route.
@@ -61,8 +61,9 @@ interface RouterMapInterface extends RouterInterface
      * @param string $path
      * @param mixed  $handler
      * @param string $name
+     * @return Route
      */
-    public function patch(string $path, $handler, string $name = null);
+    public function patch(string $path, $handler, string $name = null): Route;
 
     /**
      * Adds a DELETE route.
@@ -70,8 +71,9 @@ interface RouterMapInterface extends RouterInterface
      * @param string $path
      * @param mixed  $handler
      * @param string $name
+     * @return Route
      */
-    public function delete(string $path, $handler, string $name = null);
+    public function delete(string $path, $handler, string $name = null): Route;
 
     /**
      * Adds a OPTIONS route.
@@ -79,8 +81,9 @@ interface RouterMapInterface extends RouterInterface
      * @param string $path
      * @param mixed  $handler
      * @param string $name
+     * @return Route
      */
-    public function options(string $path, $handler, string $name = null);
+    public function options(string $path, $handler, string $name = null): Route;
 
     /**
      * Adds a HEAD route.
@@ -88,6 +91,7 @@ interface RouterMapInterface extends RouterInterface
      * @param string $path
      * @param mixed  $handler
      * @param string $name
+     * @return Route
      */
-    public function head(string $path, $handler, string $name = null);
+    public function head(string $path, $handler, string $name = null): Route;
 }
