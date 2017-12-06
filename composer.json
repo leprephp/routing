@@ -1,6 +1,7 @@
 {
     "name": "lepre/routing",
     "description": "A unified interface to http routing, PSR-7 compliant",
+    "homepage": "https://github.com/leprephp/routing",
     "type": "library",
     "license": "MIT",
     "authors": [
