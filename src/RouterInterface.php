@@ -31,7 +31,6 @@ interface RouterInterface
      *
      * @throws Exception\ResourceNotFoundException If no matching resource could be found
      * @throws Exception\MethodNotAllowedException If a matching resource was found but the request method is not allowed
-     * @throws Exception\NotAcceptableException    If a matching resource was found but the request content type is not supported
      */
     public function match(ServerRequestInterface $request): RouteResult;
 

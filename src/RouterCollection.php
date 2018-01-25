@@ -49,15 +49,12 @@ class RouterCollection implements RouterInterface
     public function match(ServerRequestInterface $request): RouteResult
     {
         $methodNotAllowedException = null;
-        $notAcceptableException = null;
 
         foreach ($this->routers as $router) {
             try {
                 return $router->match($request);
             } catch (Exception\MethodNotAllowedException $e) {
                 $methodNotAllowedException = $e;
-            } catch (Exception\NotAcceptableException $e) {
-                $notAcceptableException = $e;
             } catch (Exception\ResourceNotFoundException $e) {
                 continue;
             }
@@ -65,10 +62,6 @@ class RouterCollection implements RouterInterface
 
         if ($methodNotAllowedException) {
             throw $methodNotAllowedException;
-        }
-
-        if ($notAcceptableException) {
-            throw $notAcceptableException;
         }
 
         throw new Exception\ResourceNotFoundException();

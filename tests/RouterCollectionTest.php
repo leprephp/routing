@@ -14,7 +14,6 @@ declare(strict_types=1);
 namespace Lepre\Routing\Tests;
 
 use Lepre\Routing\Exception\MethodNotAllowedException;
-use Lepre\Routing\Exception\NotAcceptableException;
 use Lepre\Routing\Exception\ResourceNotFoundException;
 use Lepre\Routing\RouterCollection;
 use Lepre\Routing\RouteResult;
@@ -138,7 +137,6 @@ class RouterCollectionTest extends TestCase
         return [
             [ResourceNotFoundException::class],
             [MethodNotAllowedException::class],
-            [NotAcceptableException::class],
         ];
     }
 
