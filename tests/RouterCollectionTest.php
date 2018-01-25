@@ -13,8 +13,11 @@ declare(strict_types=1);
 
 namespace Lepre\Routing\Tests;
 
+use Lepre\Routing\Exception\InvalidParametersException;
 use Lepre\Routing\Exception\MethodNotAllowedException;
+use Lepre\Routing\Exception\MissingParametersException;
 use Lepre\Routing\Exception\ResourceNotFoundException;
+use Lepre\Routing\Exception\RouteNotFoundException;
 use Lepre\Routing\RouterCollection;
 use Lepre\Routing\RouteResult;
 use Lepre\Routing\RouterInterface;
@@ -145,13 +148,21 @@ class RouterCollectionTest extends TestCase
         $request = $this->createMock(ServerRequestInterface::class);
 
         $router1 = $this->createMock(RouterInterface::class);
-        $router1->expects($this->never())->method('match')->willReturn(new RouteResult('handler1', []));
+        $router1->expects($this->once())->method('match')
+            ->willThrowException(new ResourceNotFoundException());
+        $router1->expects($this->once())->method('generateUrl')
+            ->with('route2', ['param1' => 'value1'])
+            ->willThrowException(new RouteNotFoundException('route2'));
 
         $router2 = $this->createMock(RouterInterface::class);
-        $router2->expects($this->never())->method('match')->willReturn(new RouteResult('handler2', []));
+        $router2->expects($this->once())->method('match')->willReturn(new RouteResult('handler2', []));
+        $router2->expects($this->once())->method('generateUrl')
+            ->with('route2', ['param1' => 'value1'])
+            ->willReturn('/page2.html');
 
         $router3 = $this->createMock(RouterInterface::class);
-        $router3->expects($this->once())->method('match')->willReturn(new RouteResult('handler3', []));
+        $router3->expects($this->never())->method('match');
+        $router3->expects($this->never())->method('generateUrl');
 
         /**
          * @var ServerRequestInterface $request
@@ -160,11 +171,12 @@ class RouterCollectionTest extends TestCase
          * @var RouterInterface        $router3
          */
 
-        $this->collection->registerRouter($router3);
-        $this->collection->registerRouter($router2);
         $this->collection->registerRouter($router1);
+        $this->collection->registerRouter($router2);
+        $this->collection->registerRouter($router3);
 
-        $this->assertEquals('handler3', $this->collection->match($request)->getHandler());
+        $this->assertEquals('handler2', $this->collection->match($request)->getHandler());
+        $this->assertEquals('/page2.html', $this->collection->generateUrl('route2', ['param1' => 'value1']));
     }
 
     /**
@@ -174,5 +186,43 @@ class RouterCollectionTest extends TestCase
     public function testVoidCollectionGenerateUrl()
     {
         $this->collection->generateUrl('the route name');
+    }
+
+    /**
+     * @expectedException \Lepre\Routing\Exception\MissingParametersException
+     */
+    public function testGenerateUrlHonorMissingParametersException()
+    {
+        $router = $this->createMock(RouterInterface::class);
+        $router->expects($this->once())->method('generateUrl')
+            ->with('routeName')
+            ->willThrowException(new MissingParametersException('routeName', ['requiredParam']));
+
+        /**
+         * @var RouterInterface $router
+         */
+
+        $this->collection->registerRouter($router);
+
+        $this->collection->generateUrl('routeName');
+    }
+
+    /**
+     * @expectedException \Lepre\Routing\Exception\InvalidParametersException
+     */
+    public function testGenerateUrlHonorInvalidParametersException()
+    {
+        $router = $this->createMock(RouterInterface::class);
+        $router->expects($this->once())->method('generateUrl')
+            ->with('routeName')
+            ->willThrowException(new InvalidParametersException('routeName', ['invalidParam']));
+
+        /**
+         * @var RouterInterface $router
+         */
+
+        $this->collection->registerRouter($router);
+
+        $this->collection->generateUrl('routeName');
     }
 }
