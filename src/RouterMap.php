@@ -13,13 +13,57 @@ declare(strict_types=1);
 
 namespace Lepre\Routing;
 
+use Psr\Http\Message\ServerRequestInterface;
+
 /**
- * AbstractRouter
+ * RouterMap
  */
-abstract class AbstractRouter implements RouterMapInterface
+class RouterMap implements RouterMapInterface
 {
     /**
+     * @var RouterMapInterface
+     */
+    private $adapter;
+
+    /**
+     * @param RouterMapInterface $adapter
+     */
+    public function __construct(RouterMapInterface $adapter)
+    {
+        $this->adapter = $adapter;
+    }
+
+    /**
      * @inheritDoc
+     */
+    public function match(ServerRequestInterface $request): RouteResult
+    {
+        return $this->adapter->match($request);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function generateUrl(string $routeName, array $params = []): string
+    {
+        return $this->adapter->generateUrl($routeName, $params);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function addRoute(Route $route)
+    {
+        $this->adapter->addRoute($route);
+    }
+
+    /**
+     * Adds a GET route.
+     *
+     * @param string $path
+     * @param mixed  $handler
+     * @param string $name
+     * @return Route
      */
     public function get(string $path, $handler, string $name = null): Route
     {
@@ -31,7 +75,12 @@ abstract class AbstractRouter implements RouterMapInterface
     }
 
     /**
-     * @inheritDoc
+     * Adds a POST route.
+     *
+     * @param string $path
+     * @param mixed  $handler
+     * @param string $name
+     * @return Route
      */
     public function post(string $path, $handler, string $name = null): Route
     {
@@ -43,7 +92,12 @@ abstract class AbstractRouter implements RouterMapInterface
     }
 
     /**
-     * @inheritDoc
+     * Adds a PUT route.
+     *
+     * @param string $path
+     * @param mixed  $handler
+     * @param string $name
+     * @return Route
      */
     public function put(string $path, $handler, string $name = null): Route
     {
@@ -55,7 +109,12 @@ abstract class AbstractRouter implements RouterMapInterface
     }
 
     /**
-     * @inheritDoc
+     * Adds a PATCH route.
+     *
+     * @param string $path
+     * @param mixed  $handler
+     * @param string $name
+     * @return Route
      */
     public function patch(string $path, $handler, string $name = null): Route
     {
@@ -67,7 +126,12 @@ abstract class AbstractRouter implements RouterMapInterface
     }
 
     /**
-     * @inheritDoc
+     * Adds a DELETE route.
+     *
+     * @param string $path
+     * @param mixed  $handler
+     * @param string $name
+     * @return Route
      */
     public function delete(string $path, $handler, string $name = null): Route
     {
@@ -79,7 +143,12 @@ abstract class AbstractRouter implements RouterMapInterface
     }
 
     /**
-     * @inheritDoc
+     * Adds a OPTIONS route.
+     *
+     * @param string $path
+     * @param mixed  $handler
+     * @param string $name
+     * @return Route
      */
     public function options(string $path, $handler, string $name = null): Route
     {
@@ -91,7 +160,12 @@ abstract class AbstractRouter implements RouterMapInterface
     }
 
     /**
-     * @inheritDoc
+     * Adds a HEAD route.
+     *
+     * @param string $path
+     * @param mixed  $handler
+     * @param string $name
+     * @return Route
      */
     public function head(string $path, $handler, string $name = null): Route
     {
