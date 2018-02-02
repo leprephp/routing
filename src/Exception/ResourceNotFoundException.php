@@ -23,16 +23,14 @@ namespace Lepre\Routing\Exception;
 class ResourceNotFoundException extends \RuntimeException implements ExceptionInterface
 {
     /**
-     * @param string     $message
-     * @param int        $code
-     * @param \Exception $previous
+     * @param string $message
      */
-    public function __construct($message = null, $code = 0, \Exception $previous = null)
+    public function __construct(string $message = null)
     {
         if ($message === null) {
             $message = 'The resource was not found';
         }
 
-        parent::__construct($message, $code, $previous);
+        parent::__construct($message);
     }
 }

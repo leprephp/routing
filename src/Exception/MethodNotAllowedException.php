@@ -28,12 +28,10 @@ class MethodNotAllowedException extends \RuntimeException implements ExceptionIn
     private $allowedMethods;
 
     /**
-     * @param string[]   $allowedMethods
-     * @param string     $message
-     * @param int        $code
-     * @param \Exception $previous
+     * @param string[] $allowedMethods
+     * @param string   $message
      */
-    public function __construct(array $allowedMethods = [], $message = null, $code = 0, \Exception $previous = null)
+    public function __construct(array $allowedMethods = [], string $message = null)
     {
         $this->allowedMethods = array_map('strtoupper', $allowedMethods);
 
@@ -41,7 +39,7 @@ class MethodNotAllowedException extends \RuntimeException implements ExceptionIn
             $message = 'The request method is not allowed';
         }
 
-        parent::__construct($message, $code, $previous);
+        parent::__construct($message);
     }
 
     /**

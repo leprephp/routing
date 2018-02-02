@@ -73,7 +73,7 @@ class RouteTest extends TestCase
 
     /**
      * @expectedException \Lepre\Routing\Exception\UnsupportedMethodException
-     * @expectedExceptionMessage The method 'UNKNOWN' is not supported.
+     * @expectedExceptionMessage The method "UNKNOWN" is not supported.
      */
     public function testAllowUnsupportedMethodThrowsException()
     {
@@ -83,7 +83,7 @@ class RouteTest extends TestCase
 
     /**
      * @expectedException \Lepre\Routing\Exception\UnsupportedMethodException
-     * @expectedExceptionMessage The method 'UNKNOWN' is not supported.
+     * @expectedExceptionMessage The method "UNKNOWN" is not supported.
      */
     public function testAllowUnsupportedMethodsThrowsException()
     {

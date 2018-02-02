@@ -22,6 +22,6 @@ class UnsupportedMethodException extends \InvalidArgumentException implements Ex
 {
     public function __construct(string $method)
     {
-        parent::__construct("The method '{$method}' is not supported.");
+        parent::__construct('The method "' . $method . '" is not supported.');
     }
 }
