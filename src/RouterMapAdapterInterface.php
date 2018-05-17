@@ -16,10 +16,10 @@ namespace Lepre\Routing;
 /**
  * RoutesMap
  */
-interface RouterMapInterface extends RouterInterface
+interface RouterMapAdapterInterface extends RouterInterface
 {
     /**
-     * Adds a route.
+     * Adds a generic route.
      *
      * @param Route $route
      */

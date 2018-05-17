@@ -18,17 +18,17 @@ use Psr\Http\Message\ServerRequestInterface;
 /**
  * RouterMap
  */
-class RouterMap implements RouterMapInterface
+class RouterMap implements RouterInterface
 {
     /**
-     * @var RouterMapInterface
+     * @var RouterMapAdapterInterface
      */
     private $adapter;
 
     /**
-     * @param RouterMapInterface $adapter
+     * @param RouterMapAdapterInterface $adapter
      */
-    public function __construct(RouterMapInterface $adapter)
+    public function __construct(RouterMapAdapterInterface $adapter)
     {
         $this->adapter = $adapter;
     }
@@ -50,11 +50,28 @@ class RouterMap implements RouterMapInterface
     }
 
     /**
-     * @inheritDoc
+     * Adds a route.
+     *
+     * @param Route $route
+     * @return Route
      */
-    public function addRoute(Route $route)
+    public function addRoute(Route $route): Route
     {
         $this->adapter->addRoute($route);
+
+        return $route;
+    }
+
+    /**
+     * Adds a route for all http method.
+     */
+    public function all(string $path, $handler, string $name = null): Route
+    {
+        $route = new Route($path, $handler, [], $name);
+
+        $this->adapter->addRoute($route);
+
+        return $route;
     }
 
     /**
@@ -69,7 +86,7 @@ class RouterMap implements RouterMapInterface
     {
         $route = new Route($path, $handler, ['GET'], $name);
 
-        $this->addRoute($route);
+        $this->adapter->addRoute($route);
 
         return $route;
     }
@@ -86,7 +103,7 @@ class RouterMap implements RouterMapInterface
     {
         $route = new Route($path, $handler, ['POST'], $name);
 
-        $this->addRoute($route);
+        $this->adapter->addRoute($route);
 
         return $route;
     }
@@ -103,7 +120,7 @@ class RouterMap implements RouterMapInterface
     {
         $route = new Route($path, $handler, ['PUT'], $name);
 
-        $this->addRoute($route);
+        $this->adapter->addRoute($route);
 
         return $route;
     }
@@ -120,7 +137,7 @@ class RouterMap implements RouterMapInterface
     {
         $route = new Route($path, $handler, ['PATCH'], $name);
 
-        $this->addRoute($route);
+        $this->adapter->addRoute($route);
 
         return $route;
     }
@@ -137,7 +154,7 @@ class RouterMap implements RouterMapInterface
     {
         $route = new Route($path, $handler, ['DELETE'], $name);
 
-        $this->addRoute($route);
+        $this->adapter->addRoute($route);
 
         return $route;
     }
@@ -154,7 +171,7 @@ class RouterMap implements RouterMapInterface
     {
         $route = new Route($path, $handler, ['OPTIONS'], $name);
 
-        $this->addRoute($route);
+        $this->adapter->addRoute($route);
 
         return $route;
     }
@@ -171,7 +188,7 @@ class RouterMap implements RouterMapInterface
     {
         $route = new Route($path, $handler, ['HEAD'], $name);
 
-        $this->addRoute($route);
+        $this->adapter->addRoute($route);
 
         return $route;
     }

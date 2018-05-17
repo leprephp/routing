@@ -16,15 +16,15 @@ namespace Lepre\Routing\Tests;
 use Lepre\Routing\Route;
 use Lepre\Routing\RouteResult;
 use Lepre\Routing\RouterMap;
-use Lepre\Routing\RouterMapInterface;
+use Lepre\Routing\RouterMapAdapterInterface;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ServerRequestInterface;
 
 class RouterMapTest extends TestCase
 {
-    public function testMatchCallsInternalRouterMapInterface()
+    public function testMatchCallsInternalAdapterImplementation()
     {
-        $adapter = $this->createMock(RouterMapInterface::class);
+        $adapter = $this->createMock(RouterMapAdapterInterface::class);
         $request = $this->createMock(ServerRequestInterface::class);
         $result = $this->createMock(RouteResult::class);
 
@@ -34,17 +34,17 @@ class RouterMapTest extends TestCase
             ->willReturn($result);
 
         /**
-         * @var RouterMapInterface     $adapter
-         * @var ServerRequestInterface $request
-         * @var RouteResult            $result
+         * @var RouterMapAdapterInterface $adapter
+         * @var ServerRequestInterface    $request
+         * @var RouteResult               $result
          */
 
         $this->assertEquals($result, (new RouterMap($adapter))->match($request));
     }
 
-    public function testGenerateUrlCallsInternalRouterMapInterface()
+    public function testGenerateUrlCallsInternalAdapterImplementation()
     {
-        $adapter = $this->createMock(RouterMapInterface::class);
+        $adapter = $this->createMock(RouterMapAdapterInterface::class);
 
         $adapter->expects($this->once())
             ->method('generateUrl')
@@ -52,15 +52,15 @@ class RouterMapTest extends TestCase
             ->willReturn('/path-of-route');
 
         /**
-         * @var RouterMapInterface $adapter
+         * @var RouterMapAdapterInterface $adapter
          */
 
         $this->assertEquals('/path-of-route', (new RouterMap($adapter))->generateUrl('routeName', ['key' => 'value']));
     }
 
-    public function testAddRouteCallsInternalRouterMapInterface()
+    public function testAddRouteCallsInternalAdapterImplementation()
     {
-        $adapter = $this->createMock(RouterMapInterface::class);
+        $adapter = $this->createMock(RouterMapAdapterInterface::class);
         $route = $this->createMock(Route::class);
 
         $adapter->expects($this->once())
@@ -68,11 +68,35 @@ class RouterMapTest extends TestCase
             ->with($route);
 
         /**
-         * @var RouterMapInterface $adapter
-         * @var Route              $route
+         * @var RouterMapAdapterInterface $adapter
+         * @var Route                     $route
          */
 
         (new RouterMap($adapter))->addRoute($route);
+    }
+
+    public function testAll()
+    {
+        $adapter = $this->createMock(RouterMapAdapterInterface::class);
+
+        $adapter->expects($this->once())
+            ->method('addRoute')
+            ->with($this->callback(function (Route $route) {
+                $this->assertEquals('/', $route->getPath());
+                $this->assertEquals('handler', $route->getHandler());
+                $this->assertEquals(['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS', 'HEAD'], $route->getAllowedMethods());
+                $this->assertEquals('routeName', $route->getName());
+
+                return true;
+            }))
+        ;
+
+        /**
+         * @var RouterMapAdapterInterface $adapter
+         */
+
+        $routerMap = new RouterMap($adapter);
+        $routerMap->all('/', 'handler', 'routeName');
     }
 
     /**
@@ -81,42 +105,26 @@ class RouterMapTest extends TestCase
      */
     public function testHelperMethod(string $method)
     {
-        $check = new \stdClass();
-        $check->route = null;
+        $adapter = $this->createMock(RouterMapAdapterInterface::class);
 
-        $adapter = new class($check) implements RouterMapInterface
-        {
-            private $check;
+        $adapter->expects($this->once())
+            ->method('addRoute')
+            ->with($this->callback(function (Route $route) use ($method) {
+                $this->assertEquals('/', $route->getPath());
+                $this->assertEquals('handler', $route->getHandler());
+                $this->assertEquals([strtoupper($method)], $route->getAllowedMethods());
+                $this->assertEquals('routeName', $route->getName());
 
-            public function __construct(\stdClass $check)
-            {
-                $this->check = $check;
-            }
+                return true;
+            }))
+        ;
 
-            public function match(ServerRequestInterface $request): RouteResult
-            {
-                // This method is irrelevant for the the purpose of the test.
-            }
+        /**
+         * @var RouterMapAdapterInterface $adapter
+         */
 
-            public function generateUrl(string $routeName, array $params = []): string
-            {
-                // This method is irrelevant for the the purpose of the test.
-            }
-
-            public function addRoute(Route $route)
-            {
-                $this->check->route = $route;
-            }
-        };
-
-        /** @var Route $route */
-        $route = (new RouterMap($adapter))->$method('/', 'handler', 'routeName');
-        $this->assertSame($check->route, $route);
-
-        $this->assertEquals('/', $route->getPath());
-        $this->assertEquals('handler', $route->getHandler());
-        $this->assertEquals([strtoupper($method)], $route->getAllowedMethods());
-        $this->assertEquals('routeName', $route->getName());
+        $routerMap = new RouterMap($adapter);
+        $routerMap->$method('/', 'handler', 'routeName');
     }
 
     public function helperMethodProvider()
