@@ -13,7 +13,6 @@ declare(strict_types=1);
 
 namespace Lepre\Routing\Tests\Bridge\AuraRouter;
 
-use Aura\Router\RouterContainer;
 use Lepre\Routing\Bridge\AuraRouter\AuraRouterMapAdapter;
 use Lepre\Routing\RouterMapAdapterInterface;
 use Lepre\Routing\Test\RouterMapAdapterTestCase;
@@ -22,8 +21,6 @@ class AuraRouterMapAdapterTest extends RouterMapAdapterTestCase
 {
     protected function createAdapter(): RouterMapAdapterInterface
     {
-        return new AuraRouterMapAdapter(
-            new RouterContainer()
-        );
+        return new AuraRouterMapAdapter();
     }
 }

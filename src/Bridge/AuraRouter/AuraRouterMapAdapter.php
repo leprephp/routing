@@ -41,9 +41,9 @@ class AuraRouterMapAdapter implements RouterMapAdapterInterface
     /**
      * @param RouterContainer $container
      */
-    public function __construct(RouterContainer $container)
+    public function __construct(RouterContainer $container = null)
     {
-        $this->container = $container;
+        $this->container = $container ?: new RouterContainer();
         $this->map = $this->container->getMap();
     }
 
