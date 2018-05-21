@@ -16,7 +16,9 @@ namespace Lepre\Routing;
 use Psr\Http\Message\ServerRequestInterface;
 
 /**
- * RouterCollection
+ * The router collection.
+ *
+ * You can use this class when your application needs multiple router.
  *
  * @author Daniele De Nobili <danieledenobili@gmail.com>
  */
@@ -28,6 +30,8 @@ class RouterCollection implements RouterInterface
     protected $routers = [];
 
     /**
+     * Registers a new router to the collection.
+     *
      * @param RouterInterface $router
      */
     public function registerRouter(RouterInterface $router)
@@ -36,6 +40,8 @@ class RouterCollection implements RouterInterface
     }
 
     /**
+     * Returns all registered routers.
+     *
      * @return RouterInterface[]
      */
     public function getRouters(): array

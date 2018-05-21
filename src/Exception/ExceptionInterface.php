@@ -14,7 +14,9 @@ declare(strict_types=1);
 namespace Lepre\Routing\Exception;
 
 /**
- * ExceptionInterface
+ * An interface implemented by all exception in this namespace.
+ *
+ * You can use this interface to catch all the exceptions thrown by the routing component.
  *
  * @author Daniele De Nobili <danieledenobili@gmail.com>
  */

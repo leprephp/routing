@@ -14,7 +14,11 @@ declare(strict_types=1);
 namespace Lepre\Routing\Exception;
 
 /**
- * InvalidParametersException
+ * Invalid parameters exception.
+ *
+ * Thrown when some parameters are not valid in RouterInterface::generateUrl().
+ *
+ * @see RouterInterface::generateUrl()
  *
  * @author Daniele De Nobili <danieledenobili@gmail.com>
  */

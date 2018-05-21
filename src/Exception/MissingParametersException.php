@@ -14,7 +14,11 @@ declare(strict_types=1);
 namespace Lepre\Routing\Exception;
 
 /**
- * MissingParametersException
+ * Missing parameters exception.
+ *
+ * Thrown when some parameters are missing in RouterInterface::generateUrl().
+ *
+ * @see RouterInterface::generateUrl()
  *
  * @author Daniele De Nobili <danieledenobili@gmail.com>
  */

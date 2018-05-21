@@ -18,6 +18,8 @@ namespace Lepre\Routing\Exception;
  *
  * This exception should trigger an HTTP 404 response in the application code.
  *
+ * @see RouterInterface::match()
+ *
  * @author Daniele De Nobili <danieledenobili@gmail.com>
  */
 class ResourceNotFoundException extends \RuntimeException implements ExceptionInterface

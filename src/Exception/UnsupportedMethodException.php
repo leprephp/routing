@@ -14,7 +14,12 @@ declare(strict_types=1);
 namespace Lepre\Routing\Exception;
 
 /**
- * UnsupportedMethodException
+ * Unsupported method exception.
+ *
+ * Thrown when try to allow an unsupported HTTP method in a Route object.
+ *
+ * @see Route::allowMethod()
+ * @see Route::allowMethods()
  *
  * @author Daniele De Nobili <danieledenobili@gmail.com>
  */

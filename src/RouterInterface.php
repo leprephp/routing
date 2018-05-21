@@ -16,14 +16,14 @@ namespace Lepre\Routing;
 use Psr\Http\Message\ServerRequestInterface;
 
 /**
- * RouterInterface
+ * The router interface.
  *
  * @author Daniele De Nobili <danieledenobili@gmail.com>
  */
 interface RouterInterface
 {
     /**
-     * Returns the route that match the given request.
+     * Returns the RouteResult that match the given request.
      *
      * @param ServerRequestInterface $request The request to match
      *

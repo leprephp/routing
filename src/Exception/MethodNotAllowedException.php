@@ -14,9 +14,11 @@ declare(strict_types=1);
 namespace Lepre\Routing\Exception;
 
 /**
- * The request method is not allowed.
+ * The HTTP method of the request is not allowed.
  *
  * This exception should trigger an HTTP 405 response in the application code.
+ *
+ * @see RouterInterface::match()
  *
  * @author Daniele De Nobili <danieledenobili@gmail.com>
  */

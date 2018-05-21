@@ -16,7 +16,16 @@ namespace Lepre\Routing;
 use Lepre\Routing\Exception\UnsupportedMethodException;
 
 /**
- * Route
+ * Represents a single route.
+ *
+ * A route is the combination of a path, an handler and a list of HTTP methods. Two routes
+ * with some path are allowed only with non-overlapping list of HTTP methods.
+ *
+ * You can provide also a name for the route, that is used as its identifier within the RouterMap.
+ *
+ * @see RouterMapInterface::addRoute()
+ *
+ * @author Daniele De Nobili <danieledenobili@gmail.com>
  */
 class Route
 {
@@ -41,7 +50,7 @@ class Route
     private $name;
 
     /**
-     * @var array
+     * @var string[]
      */
     private static $supportedMethods = ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS', 'HEAD'];
 
@@ -60,6 +69,8 @@ class Route
     }
 
     /**
+     * Returns the path.
+     *
      * @return string
      */
     public function getPath(): string
@@ -68,6 +79,8 @@ class Route
     }
 
     /**
+     * Returns the handler.
+     *
      * @return mixed
      */
     public function getHandler()
@@ -76,8 +89,11 @@ class Route
     }
 
     /**
-     * @param string $method
+     * Allows an HTTP method.
+     *
+     * @param string $method The HTTP method to allow
      * @return $this
+     * @throws UnsupportedMethodException If the method is not supported
      */
     public function allowMethod(string $method): Route
     {
@@ -91,8 +107,11 @@ class Route
     }
 
     /**
-     * @param array $methods
+     * Allows a list of HTTP methods.
+     *
+     * @param array $methods The HTTP methods list to allow
      * @return $this
+     * @throws UnsupportedMethodException If at least one of the methods is not supported
      */
     public function allowMethods(array $methods = []): Route
     {
@@ -105,6 +124,8 @@ class Route
     }
 
     /**
+     * Returns the allowed methods.
+     *
      * @return string[]
      */
     public function getAllowedMethods(): array
@@ -113,6 +134,8 @@ class Route
     }
 
     /**
+     * Binds a name to the route.
+     *
      * @param string $name
      * @return $this
      */
@@ -124,6 +147,8 @@ class Route
     }
 
     /**
+     * Returns the name of the route.
+     *
      * @return string
      */
     public function getName(): string

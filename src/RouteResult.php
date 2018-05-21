@@ -16,6 +16,8 @@ namespace Lepre\Routing;
 /**
  * A value object representing the result of the router match.
  *
+ * @see RouterInterface::match()
+ *
  * @author Daniele De Nobili <danieledenobili@gmail.com>
  */
 class RouteResult
@@ -26,15 +28,13 @@ class RouteResult
     private $handler;
 
     /**
-     * @var string[]
+     * @var array
      */
     private $params;
 
     /**
-     * RouteResult constructor.
-     *
-     * @param mixed    $handler
-     * @param string[] $params
+     * @param mixed $handler
+     * @param array $params
      */
     public function __construct($handler, array $params = [])
     {
@@ -43,6 +43,8 @@ class RouteResult
     }
 
     /**
+     * Returns the handler.
+     *
      * @return mixed
      */
     public function getHandler()
@@ -51,7 +53,9 @@ class RouteResult
     }
 
     /**
-     * @return string[]
+     * Returns the parameters list.
+     *
+     * @return array
      */
     public function getParams(): array
     {
