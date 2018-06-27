@@ -16,7 +16,7 @@ namespace Lepre\Routing\Tests\Exception;
 use Lepre\Routing\Exception\InvalidParametersException;
 use PHPUnit\Framework\TestCase;
 
-class InvalidParametersExceptionTest extends TestCase
+final class InvalidParametersExceptionTest extends TestCase
 {
     public function testMessage()
     {

@@ -23,7 +23,7 @@ namespace Lepre\Routing\Exception;
  *
  * @author Daniele De Nobili <danieledenobili@gmail.com>
  */
-class UnsupportedMethodException extends \InvalidArgumentException implements ExceptionInterface
+final class UnsupportedMethodException extends \InvalidArgumentException implements ExceptionInterface
 {
     public function __construct(string $method)
     {

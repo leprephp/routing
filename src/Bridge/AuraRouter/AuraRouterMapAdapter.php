@@ -26,7 +26,7 @@ use Psr\Http\Message\ServerRequestInterface;
 /**
  * AuraRouterMapAdapter
  */
-class AuraRouterMapAdapter implements RouterMapAdapterInterface
+final class AuraRouterMapAdapter implements RouterMapAdapterInterface
 {
     /**
      * @var RouterContainer

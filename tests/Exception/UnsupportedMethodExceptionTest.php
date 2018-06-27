@@ -16,7 +16,7 @@ namespace Lepre\Routing\Tests\Exception;
 use Lepre\Routing\Exception\UnsupportedMethodException;
 use PHPUnit\Framework\TestCase;
 
-class UnsupportedMethodExceptionTest extends TestCase
+final class UnsupportedMethodExceptionTest extends TestCase
 {
     public function testMessage()
     {

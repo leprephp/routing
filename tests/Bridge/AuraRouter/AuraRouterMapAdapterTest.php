@@ -17,7 +17,7 @@ use Lepre\Routing\Bridge\AuraRouter\AuraRouterMapAdapter;
 use Lepre\Routing\RouterMapAdapterInterface;
 use Lepre\Routing\Test\RouterMapAdapterTestCase;
 
-class AuraRouterMapAdapterTest extends RouterMapAdapterTestCase
+final class AuraRouterMapAdapterTest extends RouterMapAdapterTestCase
 {
     protected function createAdapter(): RouterMapAdapterInterface
     {

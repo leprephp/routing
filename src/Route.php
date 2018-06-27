@@ -27,7 +27,7 @@ use Lepre\Routing\Exception\UnsupportedMethodException;
  *
  * @author Daniele De Nobili <danieledenobili@gmail.com>
  */
-class Route
+final class Route
 {
     /**
      * @var string

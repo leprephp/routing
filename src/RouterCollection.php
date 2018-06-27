@@ -22,7 +22,7 @@ use Psr\Http\Message\ServerRequestInterface;
  *
  * @author Daniele De Nobili <danieledenobili@gmail.com>
  */
-class RouterCollection implements RouterInterface
+final class RouterCollection implements RouterInterface
 {
     /**
      * @var RouterInterface[]

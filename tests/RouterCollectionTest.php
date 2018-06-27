@@ -27,7 +27,7 @@ use Psr\Http\Message\ServerRequestInterface;
 /**
  * @covers \Lepre\Routing\RouterCollection
  */
-class RouterCollectionTest extends TestCase
+final class RouterCollectionTest extends TestCase
 {
     /**
      * @var RouterCollection

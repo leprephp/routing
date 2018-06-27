@@ -22,7 +22,7 @@ namespace Lepre\Routing\Exception;
  *
  * @author Daniele De Nobili <danieledenobili@gmail.com>
  */
-class ResourceNotFoundException extends \RuntimeException implements ExceptionInterface
+final class ResourceNotFoundException extends \RuntimeException implements ExceptionInterface
 {
     /**
      * @param string $message

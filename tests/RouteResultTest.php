@@ -19,7 +19,7 @@ use PHPUnit\Framework\TestCase;
 /**
  * @covers \Lepre\Routing\RouteResult
  */
-class RouteResultTest extends TestCase
+final class RouteResultTest extends TestCase
 {
     public function testBasic()
     {

@@ -20,13 +20,13 @@ use Lepre\Routing\RouterMapAdapterInterface;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ServerRequestInterface;
 
-class RouterMapTest extends TestCase
+final class RouterMapTest extends TestCase
 {
     public function testMatchCallsInternalAdapterImplementation()
     {
         $adapter = $this->createMock(RouterMapAdapterInterface::class);
         $request = $this->createMock(ServerRequestInterface::class);
-        $result = $this->createMock(RouteResult::class);
+        $result = new RouteResult('fake handler');
 
         $adapter->expects($this->once())
             ->method('match')
@@ -61,7 +61,7 @@ class RouterMapTest extends TestCase
     public function testAddRouteCallsInternalAdapterImplementation()
     {
         $adapter = $this->createMock(RouterMapAdapterInterface::class);
-        $route = $this->createMock(Route::class);
+        $route = new Route('/', 'fake handler');
 
         $adapter->expects($this->once())
             ->method('addRoute')

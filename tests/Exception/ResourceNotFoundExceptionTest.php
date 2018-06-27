@@ -16,7 +16,7 @@ namespace Lepre\Routing\Tests\Exception;
 use Lepre\Routing\Exception\ResourceNotFoundException;
 use PHPUnit\Framework\TestCase;
 
-class ResourceNotFoundExceptionTest extends TestCase
+final class ResourceNotFoundExceptionTest extends TestCase
 {
     public function testMessage()
     {

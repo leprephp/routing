@@ -16,7 +16,7 @@ namespace Lepre\Routing\Tests\Exception;
 use Lepre\Routing\Exception\MethodNotAllowedException;
 use PHPUnit\Framework\TestCase;
 
-class MethodNotAllowedExceptionTest extends TestCase
+final class MethodNotAllowedExceptionTest extends TestCase
 {
     public function testMessage()
     {

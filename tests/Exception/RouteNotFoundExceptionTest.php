@@ -16,7 +16,7 @@ namespace Lepre\Routing\Tests\Exception;
 use Lepre\Routing\Exception\RouteNotFoundException;
 use PHPUnit\Framework\TestCase;
 
-class RouteNotFoundExceptionTest extends TestCase
+final class RouteNotFoundExceptionTest extends TestCase
 {
     public function testMessage()
     {

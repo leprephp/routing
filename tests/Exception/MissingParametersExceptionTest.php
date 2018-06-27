@@ -16,7 +16,7 @@ namespace Lepre\Routing\Tests\Exception;
 use Lepre\Routing\Exception\MissingParametersException;
 use PHPUnit\Framework\TestCase;
 
-class MissingParametersExceptionTest extends TestCase
+final class MissingParametersExceptionTest extends TestCase
 {
     public function testMessage()
     {

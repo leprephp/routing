@@ -22,7 +22,7 @@ namespace Lepre\Routing\Exception;
  *
  * @author Daniele De Nobili <danieledenobili@gmail.com>
  */
-class InvalidParametersException extends \InvalidArgumentException implements ExceptionInterface
+final class InvalidParametersException extends \InvalidArgumentException implements ExceptionInterface
 {
     /**
      * @param string   $routeName

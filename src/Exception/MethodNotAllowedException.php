@@ -22,7 +22,7 @@ namespace Lepre\Routing\Exception;
  *
  * @author Daniele De Nobili <danieledenobili@gmail.com>
  */
-class MethodNotAllowedException extends \RuntimeException implements ExceptionInterface
+final class MethodNotAllowedException extends \RuntimeException implements ExceptionInterface
 {
     /**
      * @var string[]

@@ -20,7 +20,7 @@ namespace Lepre\Routing;
  *
  * @author Daniele De Nobili <danieledenobili@gmail.com>
  */
-class RouteResult
+final class RouteResult
 {
     /**
      * @var mixed
