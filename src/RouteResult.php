@@ -43,7 +43,9 @@ final class RouteResult
     }
 
     /**
-     * Returns the handler.
+     * Returns the handler, maybe a RequestHandlerInterface.
+     *
+     * @see \Psr\Http\Server\RequestHandlerInterface
      *
      * @return mixed
      */
