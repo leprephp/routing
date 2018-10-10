@@ -16,7 +16,9 @@ namespace Lepre\Routing;
 use Psr\Http\Message\ServerRequestInterface;
 
 /**
- * The router interface.
+ * The main router interface.
+ *
+ * This interface provide only the basic capabilities of a router: match() and generateUrl().
  *
  * @author Daniele De Nobili <danieledenobili@gmail.com>
  */

@@ -17,6 +17,8 @@ use Psr\Http\Message\ServerRequestInterface;
 
 /**
  * RouterMap
+ *
+ * @author Daniele De Nobili <danieledenobili@gmail.com>
  */
 final class RouterMap implements RouterInterface
 {

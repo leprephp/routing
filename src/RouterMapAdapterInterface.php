@@ -14,7 +14,9 @@ declare(strict_types=1);
 namespace Lepre\Routing;
 
 /**
- * RouterMapAdapterInterface
+ * The adapter interface for the RouterMap.
+ *
+ * @author Daniele De Nobili <danieledenobili@gmail.com>
  */
 interface RouterMapAdapterInterface extends RouterInterface
 {
