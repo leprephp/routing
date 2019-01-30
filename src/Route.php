@@ -109,7 +109,7 @@ final class Route
     /**
      * Allows a list of HTTP methods.
      *
-     * @param array $methods The HTTP methods list to allow
+     * @param string[] $methods The HTTP methods list to allow
      * @return $this
      * @throws UnsupportedMethodException If at least one of the methods is not supported
      */

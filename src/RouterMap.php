@@ -66,6 +66,11 @@ final class RouterMap implements RouterInterface
 
     /**
      * Adds a route for all http method.
+     *
+     * @param string      $path
+     * @param mixed       $handler
+     * @param string|null $name
+     * @return Route
      */
     public function all(string $path, $handler, string $name = null): Route
     {

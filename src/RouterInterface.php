@@ -44,7 +44,7 @@ interface RouterInterface
      *
      * @return string The generated URL
      *
-     * @throws Exception\RouteNotFoundException     If the named route doesn’t exist
+     * @throws Exception\RouteNotFoundException     If the named route does not exist
      * @throws Exception\MissingParametersException When some parameters are missing
      * @throws Exception\InvalidParametersException If a parameter value does not match the requirement
      */
