@@ -13,6 +13,11 @@ declare(strict_types=1);
 
 namespace Lepre\Routing\Test;
 
+use Lepre\Routing\Exception\InvalidParametersException;
+use Lepre\Routing\Exception\MethodNotAllowedException;
+use Lepre\Routing\Exception\MissingParametersException;
+use Lepre\Routing\Exception\ResourceNotFoundException;
+use Lepre\Routing\Exception\RouteNotFoundException;
 use Lepre\Routing\RouterMap;
 use Lepre\Routing\RouterMapAdapterInterface;
 use PHPUnit\Framework\TestCase;
@@ -28,7 +33,7 @@ abstract class RouterMapAdapterTestCase extends TestCase
      */
     private $routerMap;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->routerMap = new RouterMap($this->createAdapter());
     }
@@ -46,21 +51,19 @@ abstract class RouterMapAdapterTestCase extends TestCase
         $this->assertEquals(['postId' => 123], $route->getParams());
     }
 
-    /**
-     * @expectedException \Lepre\Routing\Exception\ResourceNotFoundException
-     */
     public function testMatchThrowsResourceNotFoundException()
     {
+        $this->expectException(ResourceNotFoundException::class);
+
         $request = new ServerRequest([], [], '/about', 'GET');
 
         $this->routerMap->match($request);
     }
 
-    /**
-     * @expectedException \Lepre\Routing\Exception\MethodNotAllowedException
-     */
     public function testMatchThrowsMethodNotAllowedException()
     {
+        $this->expectException(MethodNotAllowedException::class);
+
         $this->routerMap->post('/save-post', 'handler');
         $request = new ServerRequest([], [], '/save-post', 'GET');
 
@@ -76,27 +79,24 @@ abstract class RouterMapAdapterTestCase extends TestCase
         $this->assertEquals('/blog/123', $this->routerMap->generateUrl('blog-post', ['postId' => 123]));
     }
 
-    /**
-     * @expectedException \Lepre\Routing\Exception\RouteNotFoundException
-     */
     public function testGenerateUrlThrowsRouteNotFoundException()
     {
+        $this->expectException(RouteNotFoundException::class);
+
         $this->routerMap->generateUrl('undefined');
     }
 
-    /**
-     * @expectedException \Lepre\Routing\Exception\MissingParametersException
-     */
     public function testGenerateUrlThrowsMissingParametersException()
     {
+        $this->expectException(MissingParametersException::class);
+
         $this->markTestIncomplete();
     }
 
-    /**
-     * @expectedException \Lepre\Routing\Exception\InvalidParametersException
-     */
     public function testGenerateUrlThrowsInvalidParametersException()
     {
+        $this->expectException(InvalidParametersException::class);
+
         $this->markTestIncomplete();
     }
 }

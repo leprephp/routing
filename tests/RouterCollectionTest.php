@@ -34,7 +34,7 @@ final class RouterCollectionTest extends TestCase
      */
     private $collection;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->collection = new RouterCollection();
     }
@@ -67,12 +67,11 @@ final class RouterCollectionTest extends TestCase
         $this->assertCount(3, $this->collection->getRouters());
     }
 
-    /**
-     * @expectedException \Lepre\Routing\Exception\ResourceNotFoundException
-     * @expectedExceptionMessage The resource was not found
-     */
     public function testVoidCollectionMatch()
     {
+        $this->expectException(ResourceNotFoundException::class);
+        $this->expectExceptionMessage('The resource was not found');
+
         /** @var ServerRequestInterface $request */
         $request = $this->createMock(ServerRequestInterface::class);
 
@@ -179,20 +178,18 @@ final class RouterCollectionTest extends TestCase
         $this->assertEquals('/page2.html', $this->collection->generateUrl('route2', ['param1' => 'value1']));
     }
 
-    /**
-     * @expectedException \Lepre\Routing\Exception\RouteNotFoundException
-     * @expectedExceptionMessage Cannot generate URI for route "the route name": route not found
-     */
     public function testVoidCollectionGenerateUrl()
     {
+        $this->expectException(RouteNotFoundException::class);
+        $this->expectExceptionMessage('Cannot generate URI for route "the route name": route not found');
+
         $this->collection->generateUrl('the route name');
     }
 
-    /**
-     * @expectedException \Lepre\Routing\Exception\MissingParametersException
-     */
     public function testGenerateUrlHonorMissingParametersException()
     {
+        $this->expectException(MissingParametersException::class);
+
         $router = $this->createMock(RouterInterface::class);
         $router->expects($this->once())->method('generateUrl')
             ->with('routeName')
@@ -207,11 +204,10 @@ final class RouterCollectionTest extends TestCase
         $this->collection->generateUrl('routeName');
     }
 
-    /**
-     * @expectedException \Lepre\Routing\Exception\InvalidParametersException
-     */
     public function testGenerateUrlHonorInvalidParametersException()
     {
+        $this->expectException(InvalidParametersException::class);
+
         $router = $this->createMock(RouterInterface::class);
         $router->expects($this->once())->method('generateUrl')
             ->with('routeName')

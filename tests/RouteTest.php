@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Lepre\Routing\Tests;
 
+use Lepre\Routing\Exception\UnsupportedMethodException;
 use Lepre\Routing\Route;
 use PHPUnit\Framework\TestCase;
 
@@ -71,22 +72,20 @@ final class RouteTest extends TestCase
         $this->assertEquals(['POST', 'HEAD'], $route->getAllowedMethods());
     }
 
-    /**
-     * @expectedException \Lepre\Routing\Exception\UnsupportedMethodException
-     * @expectedExceptionMessage The method "UNKNOWN" is not supported.
-     */
     public function testAllowUnsupportedMethodThrowsException()
     {
+        $this->expectException(UnsupportedMethodException::class);
+        $this->expectExceptionMessage('The method "UNKNOWN" is not supported.');
+
         $route = new Route('/', 'handler');
         $route->allowMethod('UNKNOWN');
     }
 
-    /**
-     * @expectedException \Lepre\Routing\Exception\UnsupportedMethodException
-     * @expectedExceptionMessage The method "UNKNOWN" is not supported.
-     */
     public function testAllowUnsupportedMethodsThrowsException()
     {
+        $this->expectException(UnsupportedMethodException::class);
+        $this->expectExceptionMessage('The method "UNKNOWN" is not supported.');
+
         $route = new Route('/', 'handler');
         $route->allowMethods(['GET', 'UNKNOWN']);
     }
