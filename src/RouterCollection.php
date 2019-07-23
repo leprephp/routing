@@ -27,7 +27,7 @@ final class RouterCollection implements RouterInterface
     /**
      * @var RouterInterface[]
      */
-    protected $routers = [];
+    private $routers = [];
 
     /**
      * Registers a new router to the collection.
